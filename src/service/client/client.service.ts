@@ -2,10 +2,12 @@ import { isValidObjectId } from "mongoose";
 
 import { Client, IClient, unmaskCPF } from "@/utils/models/Client";
 import {
+  emitToSystem,
   HTTP400Error,
   HTTP404Error,
   PaginationParams,
   parsePagination,
+  SocketEvents,
 } from "@utils";
 
 export async function getAllClients(pageParams: PaginationParams) {
@@ -43,6 +45,8 @@ export async function createClient({
     cpf,
   }).save();
 
+  emitToSystem(SocketEvents.NEW_CLIENT, client.toObject());
+
   return client.toObject();
 }
 
@@ -76,6 +80,8 @@ export async function deleteClient(id: string) {
   const client = await Client.findOneAndDelete({
     _id: id,
   });
+
+  if (client) emitToSystem(SocketEvents.DELETE_CLIENT, client.toObject());
 
   return client;
 }

@@ -1,6 +1,13 @@
 import { User } from "@models";
 
-import { TokenUtils, PasswordHelper, HTTP400Error, HTTP401Error } from "@utils";
+import {
+  TokenUtils,
+  PasswordHelper,
+  HTTP400Error,
+  HTTP401Error,
+  emitToSystem,
+  SocketEvents,
+} from "@utils";
 
 export async function emailAvailable(email: string) {
   const emailExists = await User.exists({
@@ -30,6 +37,10 @@ export async function registerUser({
     name,
     hash,
     email,
+  });
+
+  emitToSystem(SocketEvents.NEW_USER, {
+    name: newUser.name,
   });
 
   const accessToken = await TokenUtils.createToken({
