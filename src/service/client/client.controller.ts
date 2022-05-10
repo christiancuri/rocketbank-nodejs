@@ -4,8 +4,18 @@ import { Validator } from "@utils";
 
 import * as service from "./client.service";
 
-export async function getAllClients(_req: Req, reply: Res) {
-  const clients = await service.getAllClients();
+export async function getAllClients(
+  req: Req<{
+    Querystring: {
+      skip?: number;
+      limit?: number;
+    };
+  }>,
+  reply: Res,
+) {
+  const { skip, limit } = req.query;
+
+  const clients = await service.getAllClients({ skip, limit });
 
   reply.send(clients);
 }

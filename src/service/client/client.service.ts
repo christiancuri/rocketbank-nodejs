@@ -1,12 +1,26 @@
 import { isValidObjectId } from "mongoose";
 
 import { Client, IClient, unmaskCPF } from "@/utils/models/Client";
-import { HTTP400Error, HTTP404Error } from "@utils";
+import {
+  HTTP400Error,
+  HTTP404Error,
+  PaginationParams,
+  parsePagination,
+} from "@utils";
 
-export async function getAllClients() {
-  const clients = await Client.find().lean();
+export async function getAllClients(pageParams: PaginationParams) {
+  const { skip, limit } = parsePagination(pageParams);
 
-  return clients;
+  const [clients, totalClients] = await Promise.all([
+    Client.find().skip(skip).limit(limit).lean(),
+    Client.estimatedDocumentCount(),
+  ]);
+
+  return {
+    clients,
+    pages: Math.round(totalClients / limit),
+    totalClients,
+  };
 }
 
 export type CreateClientPayload = Pick<IClient, "name" | "birthdate" | "cpf">;
