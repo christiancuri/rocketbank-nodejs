@@ -1,5 +1,7 @@
 import { FastifyInstance } from "fastify";
 
+import * as controller from "./client.controller";
+
 export async function routes(fastify: FastifyInstance): Promise<void> {
-  fastify;
+  fastify.get("/", controller.getAllClients);
 }
