@@ -1,5 +1,6 @@
 export type Token = {
 	SecretKey: string;
+	ExpiresIn: string;
 }
 
 export type IEnv = {

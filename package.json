@@ -9,7 +9,6 @@
     "prestart": "node resources/scripts/preStart.js",
     "start": "node --enable-source-maps dist/main.js",
     "dev": "yarn prestart && nodemon",
-    "prod": "yarn dev",
     "dev:ts-node": "yarn prestart && rimraf dist && mkdir dist && yarn postbuild && nodemon --watch \"src/\" --exec \"ts-node src/main\" -e ts",
     "prod:etsc": "yarn prestart && nodemon",
     "build:watch": "tsc --watch",

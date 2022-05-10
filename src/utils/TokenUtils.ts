@@ -1,10 +1,11 @@
 import { sign, verify } from "jsonwebtoken";
 
+import { Env } from "./Env";
 import { IUser } from "./models/User";
 import * as TokenCrypt from "./TokenCrypt";
 import { UserProps } from "./types";
 
-const PK = "";
+const PK = Env.Token.SecretKey;
 
 async function _createToken(key: string, content: Record<string, any>) {
   const encryptedContent = await TokenCrypt.encrypt(
@@ -17,7 +18,7 @@ async function _createToken(key: string, content: Record<string, any>) {
     },
     PK,
     {
-      expiresIn: "90d",
+      expiresIn: Env.Token.ExpiresIn,
     },
   );
   return TokenCrypt.encrypt(String(key), token);

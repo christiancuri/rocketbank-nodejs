@@ -2,6 +2,6 @@
   "watch": ["src"],
   "ignore": ["src/**/*.spec.ts"],
   "ext": "ts,json",
-  "exec": "etsc && yarn post-compile && yarn start",
+  "exec": "etsc && yarn post-compile && node --enable-source-maps dist/main.js",
   "legacyWatch": true
 }
