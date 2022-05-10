@@ -43,3 +43,18 @@ export async function updateClient(
 
   reply.send(client);
 }
+
+export async function deleteClient(
+  req: Req<{
+    Params: {
+      id: string;
+    };
+  }>,
+  reply: Res,
+) {
+  const { id } = req.params;
+
+  const client = await service.deleteClient(id);
+
+  reply.send(client);
+}

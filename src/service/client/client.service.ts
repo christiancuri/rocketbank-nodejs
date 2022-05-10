@@ -1,3 +1,5 @@
+import { isValidObjectId } from "mongoose";
+
 import { Client, IClient, unmaskCPF } from "@/utils/models/Client";
 import { HTTP400Error, HTTP404Error } from "@utils";
 
@@ -34,6 +36,8 @@ export async function updateClient(
   id: string,
   updateInfo: Partial<CreateClientPayload>,
 ) {
+  if (!isValidObjectId(id)) throw new HTTP400Error(`Invalid client id`);
+
   if (!Object.keys(updateInfo))
     throw new HTTP400Error(`Missing info to update on the client`);
 
@@ -50,4 +54,14 @@ export async function updateClient(
   await client.save();
 
   return client.toObject();
+}
+
+export async function deleteClient(id: string) {
+  if (!isValidObjectId(id)) throw new HTTP400Error(`Invalid client id`);
+
+  const client = await Client.findOneAndDelete({
+    _id: id,
+  });
+
+  return client;
 }

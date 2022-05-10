@@ -6,5 +6,6 @@ export async function routes(fastify: FastifyInstance): Promise<void> {
   fastify
     .get("/", controller.getAllClients)
     .post("/", controller.createClient)
-    .put("/:id", controller.updateClient);
+    .put("/:id", controller.updateClient)
+    .delete("/:id", controller.deleteClient);
 }
