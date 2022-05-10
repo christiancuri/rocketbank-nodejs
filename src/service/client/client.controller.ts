@@ -27,3 +27,19 @@ export async function createClient(
 
   reply.send(client);
 }
+
+export async function updateClient(
+  req: Req<{
+    Body: service.CreateClientPayload;
+    Params: {
+      id: string;
+    };
+  }>,
+  reply: Res,
+) {
+  const { id } = req.params;
+
+  const client = await service.updateClient(id, req.body);
+
+  reply.send(client);
+}

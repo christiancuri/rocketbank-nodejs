@@ -1,5 +1,5 @@
 import { Client, IClient, unmaskCPF } from "@/utils/models/Client";
-import { HTTP400Error } from "@utils";
+import { HTTP400Error, HTTP404Error } from "@utils";
 
 export async function getAllClients() {
   const clients = await Client.find().lean();
@@ -26,6 +26,28 @@ export async function createClient({
     birthdate,
     cpf,
   }).save();
+
+  return client.toObject();
+}
+
+export async function updateClient(
+  id: string,
+  updateInfo: Partial<CreateClientPayload>,
+) {
+  if (!Object.keys(updateInfo))
+    throw new HTTP400Error(`Missing info to update on the client`);
+
+  const client = await Client.findOne({
+    _id: id,
+  });
+
+  if (!client) throw new HTTP404Error(`Client not found`);
+
+  for (const [key, value] of Object.entries(updateInfo)) {
+    client[key] = value;
+  }
+
+  await client.save();
 
   return client.toObject();
 }
