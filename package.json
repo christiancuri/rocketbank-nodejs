@@ -5,6 +5,10 @@
   "module": "dist/main.js",
   "types": "dist/main.d.ts",
   "license": "MIT",
+  "author": {
+    "name": "Christian Curi <c.christiancuri@gmail.com>",
+    "url": "https://christiancuri.dev"
+  },
   "scripts": {
     "prestart": "node resources/scripts/preStart.js",
     "start": "node --enable-source-maps dist/main.js",
