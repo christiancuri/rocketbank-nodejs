@@ -49,6 +49,9 @@ export async function registerUser({
 
   return {
     accessToken,
+    name: {
+      name: newUser.name,
+    },
   };
 }
 
@@ -75,5 +78,8 @@ export async function loginUser({
 
   return {
     accessToken,
+    user: {
+      name: user.name,
+    },
   };
 }
