@@ -15,12 +15,12 @@ export async function emitToUser(
   event: SocketEvents,
   data: Record<string, any>,
 ): PV {
-  fastify.io.of("/").to(userId.toString()).emit(event, data);
+  fastify?.io?.of("/").to(userId.toString()).emit(event, data);
 }
 
 export async function emitToSystem(
   event: SocketEvents,
   data: Record<string, any>,
 ) {
-  fastify.io.of("/").emit(event, data);
+  fastify?.io?.of("/").emit(event, data);
 }

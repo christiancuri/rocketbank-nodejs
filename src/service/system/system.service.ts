@@ -49,7 +49,7 @@ export async function registerUser({
 
   return {
     accessToken,
-    name: {
+    user: {
       name: newUser.name,
     },
   };
