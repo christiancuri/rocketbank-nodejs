@@ -14,7 +14,7 @@ export async function getAllClients(pageParams: PaginationParams) {
   const { skip, limit } = parsePagination(pageParams);
 
   const [clients, totalClients] = await Promise.all([
-    Client.find().skip(skip).limit(limit).lean(),
+    Client.find().skip(skip).limit(limit).sort({ _id: -1 }).lean(),
     Client.estimatedDocumentCount(),
   ]);
 
