@@ -1,5 +1,6 @@
 import { User } from "@models";
 
+import { Client } from "@/utils/models/Client";
 import {
   TokenUtils,
   PasswordHelper,
@@ -81,5 +82,21 @@ export async function loginUser({
     user: {
       name: user.name,
     },
+  };
+}
+
+/**
+ * Dashboard
+ */
+
+export async function getSystemInfo() {
+  const [users, clients] = await Promise.all([
+    User.estimatedDocumentCount(),
+    Client.estimatedDocumentCount(),
+  ]);
+
+  return {
+    users,
+    clients,
   };
 }

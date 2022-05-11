@@ -49,3 +49,13 @@ export async function register(
 
   reply.send(accessToken);
 }
+
+/**
+ * Dashboard
+ */
+
+export async function getSystemInfo(_req: Req, reply: Res) {
+  const systemInfo = await service.getSystemInfo();
+
+  reply.send(systemInfo);
+}

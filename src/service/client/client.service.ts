@@ -20,7 +20,7 @@ export async function getAllClients(pageParams: PaginationParams) {
 
   return {
     clients,
-    pages: Math.round(totalClients / limit),
+    pages: Math.ceil(totalClients / limit),
     totalClients,
   };
 }
