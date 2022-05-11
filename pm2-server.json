@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "name": "rocketbank-nodejs",
+      "script": "npm",
+      "args": "run start",
+      "env": {
+        "ENV": "PRODUCTON"
+      },
+      "exp_backoff_restart_delay": 150
+    }
+  ]
+}
