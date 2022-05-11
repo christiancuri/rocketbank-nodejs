@@ -59,6 +59,5 @@ jobs:
             cd /app/${{ github.event.repository.name }};
             rm -rf env.json;
             unzip -u -o -q archive.zip;
-            sudo npm rebuild bcrypt --build-from-source;
             pm2 reload rocketbank-nodejs --update-env;
           "'
